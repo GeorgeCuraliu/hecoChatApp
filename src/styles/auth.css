@@ -1,0 +1,28 @@
+:root{
+    --hecoOrange: #FFA048;
+    --backgroundOrange: #FFEFE0;
+
+}
+
+
+*,::after,::before{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+
+header{
+    display: flex;
+    background-color: var(--hecoOrange);
+    height: 10vh;
+    align-items: center;
+    justify-content: center;
+    color: #6C6C6C;
+    font-size: 7vh;
+    font-weight: bold;
+}
+.body{
+    background-color: var(--backgroundOrange);
+    height: 90vh;
+}
