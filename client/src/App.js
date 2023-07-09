@@ -4,13 +4,20 @@ import ContactPage from './ContactPage/contacts.js';
 import CreatePage from './Authentification/create.js';
 import ProfilePage from './Profile/profile.js';
 import MessagePage from './SendMessage/message.js';
-import {Route, Routes} from 'react-router-dom';
-
+import axios from 'axios';
+import {Route, Router, Routes} from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
+
+
   return (
-    <ProfilePage />
-    
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+      </Routes>
+    </BrowserRouter>
   );
   
 }

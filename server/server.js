@@ -10,36 +10,37 @@ app.use(express.json());
 
 let dbPath = "data.json";
 
-
 const readDB = () => {
-    fs.readFile(dbPath, (err, jsonData) => {
-        if(err){return new Error("no db found")}
-        return JSON.parse(jsonData);
+    return new Promise((resolve, reject) => {
+        fs.readFile(dbPath, (err, jsonData) => {
+            if(err){resolve(new Error("no db found"))}
+            resolve(JSON.parse(jsonData));
+        })
     })
 }
 
 const writeDB = (data) => {
-    fs.writeFile(dbPath, JSON.stringify(data), err => {
-        if(err){return new Error("no db found")}
-        return true;
+    return new Promise((resolve, reject) => {
+        fs.writeFile(dbPath, JSON.stringify(data), err => {
+            if(err){resolve(new Error("no db found"))}
+            resolve(true)
+        })
     })
 }
 
 
-app.post("/createAccount", (req, res) => {//req.body.name[surname, firstname]   req.body.password    req.body.departament   req.body.userName
+app.post("/createAccount", async (req, res) =>  {//req.body.name[surname, firstname]   req.body.password    req.body.departament   req.body.userName
 
-        let data
+        let data;
         try{
-            data = readDB();
+            data = await readDB();
         }catch{
             return res.status(500).send("Coudlnt acces the data base");
         }
 
-        data = JSON.parse(jsonData);
-
         if(data[req.body.userName]){return res.status(409).send("The username is already in the db")}
 
-        data[req.body.userName] = {
+        data.users[req.body.userName] = {
             surname: req.body.name[0],
             firstname : req.body.name[1],
             password: req.body.password,
@@ -48,7 +49,7 @@ app.post("/createAccount", (req, res) => {//req.body.name[surname, firstname]   
         }
 
         try{
-            writeDB(data);
+            await writeDB(data);
         }catch{
             return res.status(500).send("Couldnt acces the data base")
         }
@@ -58,11 +59,11 @@ app.post("/createAccount", (req, res) => {//req.body.name[surname, firstname]   
 })
 
 
-app.post("/logIn", (req, res) => {//req.body.userName  req.body.password
+app.post("/logIn", async (req, res) => {//req.body.userName  req.body.password
 
     let data
     try{
-        data = readDB();
+         data = await readDB();
     }catch{
         return res.status(500).send("Couldnt acces the data base");
     }
@@ -75,11 +76,11 @@ app.post("/logIn", (req, res) => {//req.body.userName  req.body.password
 
 })
 
-app.post("/getUsers", (req, res) => {//req.body.userName
+app.post("/getUsers", async (req, res) => {//req.body.userName
 
     let data
     try{
-        data = readDB();
+        data = await readDB();
     }catch{
         return res.status(500).send("Couldnt acces the data base");
     }
@@ -99,11 +100,11 @@ app.post("/getUsers", (req, res) => {//req.body.userName
 })
 
 
-app.post("/sendMessage", (req, res) => {//req.body.to  req.body.from   req.body.hangar    req.body.for    req.body.time   req.body.date    req.body.message
+app.post("/sendMessage", async (req, res) => {//req.body.to  req.body.from   req.body.hangar    req.body.for    req.body.time   req.body.date    req.body.message
     
     let data
     try{
-        data = readDB();
+        data = await readDB();
     }catch{
         return res.status(500).send("Couldnt acces the data base");
     }
@@ -118,7 +119,7 @@ app.post("/sendMessage", (req, res) => {//req.body.to  req.body.from   req.body.
 
 
     try{
-        writeDB(data);
+       await writeDB(data);
     }catch{
         return res.status(500).send("Couldnt acces the data base")
     }

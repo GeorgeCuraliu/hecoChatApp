@@ -2,7 +2,8 @@
   "scripts": {
     "start-server": "pm2 start server.js --name server",
     "stop-server": "pm2 stop server",
-    "restart-server": "pm2 restart server"
+    "restart-server": "pm2 restart server",
+    "logs": "pm2 logs"
   },
   "dependencies": {
     "cors": "^2.8.5",
