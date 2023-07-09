@@ -3,7 +3,9 @@
     --backgroundOrange: #FFEFE0;
 
 }
-
+html{
+    background-color: var(--backgroundOrange);
+}
 
 *,::after,::before{
     margin: 0;
@@ -11,23 +13,34 @@
     border: 0;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
-
+button:active{
+    background-color: white;
+}
+button{
+    transition: background-color 0.3s ease-out;
+}
 header{
     display: flex;
+    position: fixed;
     padding-left: 10px;
     background-color: var(--hecoOrange);
     height: 10vh;
+    width: 100%;
     align-items: center;
     color: #6C6C6C;
     font-size: 7vh;
     font-weight: bold;
     font-style: italic;
+    z-index: 999;
+}
+.space{
+    height: 10vh;
 }
 .body{
     background-color: var(--backgroundOrange);
     height: 90vh;
     display: flex;
+    
     flex-direction: column;
 }
 .text{

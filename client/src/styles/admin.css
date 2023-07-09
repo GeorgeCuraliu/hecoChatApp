@@ -1,0 +1,78 @@
+.addButton{
+    display: flex;
+    position: relative;
+    left: 5vw;
+    width: 90vw;
+    height: 10vh;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    margin-top: 5%;
+    color: #6C6C6C;
+    font-size: 5vh;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid var(--hecoOrange);
+}
+.accInput
+{
+    width: 90vw;
+    height: 5vh;
+    align-self: center;
+    border: 2px solid var(--hecoOrange);
+    border-radius: 10px;
+    margin-top: 1vh;
+    margin-left: 5vw;
+}
+.accInput::placeholder{
+    text-align: center;
+    font-size: 3vh;
+}
+.adminButton{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    left: 5vw;
+    width: 90vw;
+    height: 5vh;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+    margin-top: 5%;
+    color: #6C6C6C;
+    border: 2px solid var(--hecoOrange);
+
+
+}
+.adminText{
+    position: relative;
+    left: 20vw;
+    align-items: center;
+    text-align: center;
+    justify-self: center;
+    justify-content: center;
+    font-weight: lighter;
+    font-size: 3vh;
+}
+.adminCheck{
+    position: relative;
+    margin-left: 30vw;
+    height: 3vh;
+    width: 150px;
+}
+.createNewButton{
+    display: flex;
+    position: relative;
+    left: 75vw;
+    width: 20vw;
+    height: 5vh;
+    border-radius: 15px;
+    background-color: var(--hecoOrange);
+    margin-top: 5%;
+    color: #6C6C6C;
+    font-size: 2.5vh;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid #6C6C6C;
+}

@@ -7,6 +7,9 @@ const Header = () => {
                 <p>HECO Chat</p>
                 <img src=""/>
             </header>
+            <div className="space">
+
+            </div>
         </div>
     );
 }
