@@ -29,7 +29,7 @@ const writeDB = (data) => {
 }
 
 
-app.post("/createAccount", async (req, res) =>  {//req.body.name[surname, firstname]   req.body.password    req.body.departament   req.body.userName
+app.post("/createAccount", async (req, res) =>  {//req.body.name[surname, firstname]   req.body.password    req.body.departament   req.body.userName  req.body.adminAcces
 
         let data;
         try{
@@ -45,7 +45,8 @@ app.post("/createAccount", async (req, res) =>  {//req.body.name[surname, firstn
             firstname : req.body.name[1],
             password: req.body.password,
             departament:  req.body.departament,
-            receivedMessages: {}
+            receivedMessages: {},
+            adminAcces: req.body.adminAcces
         }
 
         try{
@@ -69,9 +70,9 @@ app.post("/logIn", async (req, res) => {//req.body.userName  req.body.password
     }
 
     if(data.users[req.body.userName] && data.users[req.body.userName].password === req.body.password){
-
         return res.status(200).send();
-
+    }else{
+        return res.status(403).send()
     }
 
 })
@@ -85,12 +86,12 @@ app.post("/getUsers", async (req, res) => {//req.body.userName
         return res.status(500).send("Couldnt acces the data base");
     }
 
-    let returnObj;
+    let returnObj = {};
     Object.entries(data.users).forEach(([key, value]) => {
         if(key != req.body.userName){
             returnObj[key] = {...value}
             delete returnObj[key].receivedMessages;
-            delete returnObj[key].password
+            delete returnObj[key].password;
         }
     })
 
@@ -130,11 +131,11 @@ app.post("/sendMessage", async (req, res) => {//req.body.to  req.body.from   req
 
 
 
-app.post("/getMessages", (req, res) => {//req.body.userName
+app.post("/getMessages",async (req, res) => {//req.body.userName
 
     let data
     try{
-        data = readDB();
+        data = await readDB();
     }catch{
         return res.status(500).send("Couldnt acces the data base");
     }
@@ -162,11 +163,11 @@ app.post("/getMessages", (req, res) => {//req.body.userName
 })
 
 
-app.post("/deleteUser", (req, res) => {//req.body.userName
+app.post("/deleteUser", async (req, res) => {//req.body.userName
 
     let data
     try{
-        data = readDB();
+        data = await readDB();
     }catch{
         return res.status(500).send("Couldnt acces the data base");
     }
@@ -174,7 +175,7 @@ app.post("/deleteUser", (req, res) => {//req.body.userName
     delete data.users[req.body.userName];
 
     try{
-        writeDB(data);
+        await writeDB(data);
     }catch{
         return res.status(500).send("Couldnt acces the data base")
     }
