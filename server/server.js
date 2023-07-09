@@ -138,13 +138,49 @@ app.post("/getMessages", (req, res) => {//req.body.userName
         return res.status(500).send("Couldnt acces the data base");
     }
 
-    do{//will sort the data in 
-        let flag = true;
+    let tempObj = {...data.users[req.body.userName].receivedMessages}
+    let returnObj = {};
 
+    do{//will sort the data in 
+        let flag = false;
+        let smallestVal = 0;
+
+        Object.entries(tempObj).forEach(([key,value]) => {
+            let currentValue = value.date.getHours() * 100 + value.date.getMinutes();
+            if(currentValue >= smallestVal){
+                returnObj[key] = value;
+                delete tempObj[key];
+                flag(true);
+            }
+        })
+        
     }while(flag);
+
+    return res.status(200).send(returnObj);
 
 })
 
+
+app.post("/deleteUser", (req, res) => {//req.body.userName
+
+    let data
+    try{
+        data = readDB();
+    }catch{
+        return res.status(500).send("Couldnt acces the data base");
+    }
+
+    delete data.users[req.body.userName];
+
+    try{
+        writeDB(data);
+    }catch{
+        return res.status(500).send("Couldnt acces the data base")
+    }
+
+    return res.status(200).send()
+
+})
 
 
 app.listen(port, () => {
