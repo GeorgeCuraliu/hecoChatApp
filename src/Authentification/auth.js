@@ -1,4 +1,5 @@
 import "../styles/auth.css";
+import UserPic from "../Images/userPic.png"; 
 
 const LoginPage = () => {
     return(
@@ -7,12 +8,12 @@ const LoginPage = () => {
                 <p>HECO Chat</p>
             </header>
             <div className="body">
-                <img />
-                <div>Username</div>
-                <input />
-                <div>Password</div>
-                <input />
-                <button></button>
+                <img src = {UserPic} className="pic"/>  
+                <div className="text">Username</div>
+                <input className="input"/>
+                <div className="text">Password</div>
+                <input className="input"/>
+                <button className="button">mama</button>
             </div>
         </div>
     )

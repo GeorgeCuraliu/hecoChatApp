@@ -25,4 +25,29 @@ header{
 .body{
     background-color: var(--backgroundOrange);
     height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+.text{
+    margin-left: 20%;
+    margin-top: 3%;
+}
+.input{
+    width: 50vw;
+    align-self: center;
+}
+.pic{
+    display: flex;
+    align-self: center;
+}
+.button{
+    display: flex;
+    width: 15%;
+    margin-left: 50%;
+    margin-top: 10%;
+    aspect-ratio: 1/1;
+    background-color: #FFA048A6;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
 }
