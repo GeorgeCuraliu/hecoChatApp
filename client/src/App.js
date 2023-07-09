@@ -16,6 +16,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        <Route path="/contacts" element={<ContactPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/message" element={<MessagePage />} />
+        <Route path="/createAccount" element={<CreatePage />} />
       </Routes>
     </BrowserRouter>
   );
