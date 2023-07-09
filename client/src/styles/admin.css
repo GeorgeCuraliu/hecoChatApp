@@ -76,3 +76,23 @@
     font-weight: bold;
     border: 2px solid #6C6C6C;
 }
+.userCard{
+    display: flex;
+    flex-direction: row;
+}
+.infoContainer{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+}
+.infoText{
+    margin-top: 0.5vh;
+    color: #6C6C6C;
+    font-size: 2vh;
+    font-weight: bold;
+}
+.deleteButton{
+    background-color: transparent;
+    margin-left: 25vw;
+}

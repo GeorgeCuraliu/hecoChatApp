@@ -38,7 +38,7 @@ app.post("/createAccount", async (req, res) =>  {//req.body.name[surname, firstn
             return res.status(500).send("Coudlnt acces the data base");
         }
 
-        if(data[req.body.userName]){return res.status(409).send("The username is already in the db")}
+        if(data.users[req.body.userName]){return res.status(409).send("The username is already in the db")}
 
         data.users[req.body.userName] = {
             surname: req.body.name[0],
