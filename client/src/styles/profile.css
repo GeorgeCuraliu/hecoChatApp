@@ -1,0 +1,51 @@
+.backButton{
+    display: flex;
+    width: 25vw;
+    aspect-ratio: 3/1;
+    border: 2px solid var(--hecoOrange); 
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    justify-content: center;
+    align-items: center;
+    margin-left: 70vw;
+    margin-top: 1vh;
+    color: #6C6C6C;
+    font-size: 2.5vh;
+    font-weight: bold;
+}
+.profilePic{
+    display: flex;
+    margin-left: 1vw;
+    margin-top: 1vh;
+    width: 40vw;
+    
+    
+}
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+}
+.infoBox{
+    padding-top: 2.5vh;
+}
+.nameSpace{
+    display: flex;
+    color: #6C6C6C;
+    font-size: 2.5vh;
+    font-weight: bold;
+    margin-top: 2vh;
+    margin-left: 1vw;
+}
+.line{
+    display: block;
+    height: 1vh;
+    background-color: var(--hecoOrange);
+    margin-top: 2vh;
+}
+.table{
+    width: 23vw;
+    color: #6C6C6C;
+    font-size: 2vh;
+    font-weight: bold;
+    margin-left: 2vw;
+}

@@ -1,0 +1,77 @@
+.hangarButton{
+    display: flex;
+    width: 20vw;
+    aspect-ratio: 2/1;
+    border-radius: 15px;
+    background-color: var(--hecoOrange);
+    justify-content: center;
+    align-items: center;
+    margin-left: 7.5vw;
+    margin-top: 5%;
+    color: #6C6C6C;
+    font-size: 2vh;
+    font-weight: bold;
+    border: 2px solid #6C6C6C;
+}
+.jobButton{
+    display: flex;
+    width: 25vw;
+    aspect-ratio: 2/1;
+    border-radius: 15px;
+    background-color: var(--hecoOrange);
+    justify-content: center;
+    align-items: center;
+    margin-left: 5vw;
+    margin-top: 5%;
+    color: #6C6C6C;
+    font-size: 2vh;
+    font-weight: bold;
+    border: 2px solid #6C6C6C;
+}
+.timeButton{
+    display: flex;
+    width: 25vw;
+    aspect-ratio: 2/1;
+    border-radius: 15px;
+    background-color: var(--hecoOrange);
+    justify-content: center;
+    align-items: center;
+    margin-left: 5vw;
+    margin-top: 5%;
+    color: #6C6C6C;
+    font-size: 2.5vh;
+    font-weight: bold;
+    border: 2px solid #6C6C6C;
+}
+.inputObs{
+    width: 50vw;
+    height: 6vh;
+    align-self: center;
+    border: 2px solid var(--hecoOrange);
+    border-radius: 10px;
+    margin-top: 0.5vh;
+    margin-left: 3vw;
+}
+.inputObs::placeholder
+{
+    color: #6C6C6C;
+    font-size: 2vh;
+    font-weight: bold;
+    position: relative;
+    left: 5px;
+}
+.send{
+    display: flex;
+    width: 20vw;
+    aspect-ratio: 2/1;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10vw;
+    margin-top: 5%;
+    color: #6C6C6C;
+    font-size: 2vh;
+    font-weight: bold;
+    border: 2px solid var(--hecoOrange);
+}

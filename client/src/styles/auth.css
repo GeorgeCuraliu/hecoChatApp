@@ -9,18 +9,20 @@
     margin: 0;
     padding: 0;
     border: 0;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 
 header{
     display: flex;
+    padding-left: 10px;
     background-color: var(--hecoOrange);
     height: 10vh;
     align-items: center;
-    justify-content: center;
     color: #6C6C6C;
     font-size: 7vh;
     font-weight: bold;
+    font-style: italic;
 }
 .body{
     background-color: var(--backgroundOrange);
@@ -31,14 +33,22 @@ header{
 .text{
     margin-left: 20%;
     margin-top: 3%;
+    color: #6C6C6C;
+    font-weight: bold;
+    font-size: 2.5vh;
 }
 .input{
     width: 50vw;
+    height: 3vh;
     align-self: center;
+    border: 2px solid var(--hecoOrange);
+    border-radius: 10px;
+    margin-top: 0.5vh;
 }
 .pic{
     display: flex;
     align-self: center;
+    margin-top: 2vh;
 }
 .button{
     display: flex;
@@ -46,7 +56,7 @@ header{
     margin-left: 50%;
     margin-top: 10%;
     aspect-ratio: 1/1;
-    background-color: #FFA048A6;
+    background-color: transparent;
     border-radius: 100%;
     justify-content: center;
     align-items: center;

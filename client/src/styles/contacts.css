@@ -1,0 +1,48 @@
+.buttonContainer
+{
+    display: flex;
+    flex-direction: row;
+}
+.loginButton
+{
+    display: flex;
+    width: 25vw;
+    aspect-ratio: 2/1;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30vw;
+    margin-top: 5%;
+    color: #6C6C6C;
+    font-size: 2vh;
+    font-weight: bold;
+    border: 2px solid var(--hecoOrange);
+}
+.profileButton
+{
+    display: flex;
+    width: 25vw;
+    aspect-ratio: 2/1;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10vw;
+    margin-top: 5%;
+    color: #6C6C6C;
+    font-size: 2vh;
+    font-weight: bold;
+    border: 2px solid var(--hecoOrange);
+}
+.categories{
+    margin-top:10%;
+}
+.category{
+    flex-wrap: wrap;
+    min-height: 20vh;
+    color: #6C6C6C;
+    font-size: 2vh;
+    font-weight: bold;
+    padding-left: 5%;
+}
