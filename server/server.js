@@ -70,7 +70,8 @@ app.post("/logIn", async (req, res) => {//req.body.userName  req.body.password
     }
 
     if(data.users[req.body.userName] && data.users[req.body.userName].password === req.body.password){
-        return res.status(200).send();
+        return res.status(200).send(data.users[req.body.userName].adminAcces);
+
     }else{
         return res.status(403).send()
     }

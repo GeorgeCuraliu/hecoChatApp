@@ -1,15 +1,15 @@
 .hangarButton{
     display: flex;
-    width: 20vw;
-    aspect-ratio: 2/1;
+    width: 40vw;
+    aspect-ratio: 3/1;
     border-radius: 15px;
     background-color: var(--hecoOrange);
     justify-content: center;
     align-items: center;
     margin-left: 7.5vw;
     margin-top: 5%;
-    color: #6C6C6C;
-    font-size: 2vh;
+    color: #cacaca;
+    font-size: 3vh;
     font-weight: bold;
     border: 2px solid #6C6C6C;
 }
@@ -23,7 +23,7 @@
     align-items: center;
     margin-left: 5vw;
     margin-top: 5%;
-    color: #6C6C6C;
+    color: #cacaca;
     font-size: 2vh;
     font-weight: bold;
     border: 2px solid #6C6C6C;
@@ -38,7 +38,7 @@
     align-items: center;
     margin-left: 5vw;
     margin-top: 5%;
-    color: #6C6C6C;
+    color: #cacaca;
     font-size: 2.5vh;
     font-weight: bold;
     border: 2px solid #6C6C6C;

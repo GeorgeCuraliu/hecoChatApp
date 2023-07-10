@@ -3,31 +3,28 @@ import "../styles/profile.css";
 import ProfilePic from "../Images/profilePic.png";
 import Header from "../GlobalComponents/header.js";
 import Body from "../GlobalComponents/body.js";
+import { Navigate, useNavigate } from "react-router-dom/dist";
+import { useEffect } from "react";
 const ProfilePage = () => {
+
+    let nav = useNavigate();
+
+    
+
     return(
         <div>
             <Header />
             <Body component = {
                 <div className="body">
-                    <button className="backButton">Inapoi</button>
+                    <button className="backButton" onClick={() => {nav("/contacts")}}>Inapoi</button>
                     <div className="dataContainer">
                         <div className="flex">
                             <img src={ProfilePic} className="profilePic"/>
-                            <div className="infoBox">
-                                <div className="nameSpace">
-                                    Nume:
+                                <div className="usernameBox">
+                                    Username: {document.cookie.split("=")[1].split("/")[0]}
                                 </div>
-                                <div className="nameSpace">
-                                    Prenume:
-                                </div>
-                            </div>
                         </div>
-                        <div className="nameSpace">
-                            Departament:
-                        </div>
-                        <div className="nameSpace">
-                            Functie:
-                        </div>
+                        
                         <div className="line">
 
                         </div>

@@ -7,9 +7,13 @@ import Body from "../GlobalComponents/body.js";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom/dist";
 const AdminPage = () => {
     const [showModel, setShowModel] = useState(false);
     const [users, setUsers] = useState({});
+
+    let nav = useNavigate();
+
     useEffect(() => {
         axios.post("http://localhost:6969/getUsers", {userName:"24"}).then((response) => {
             console.log(response);
@@ -49,6 +53,7 @@ const AdminPage = () => {
             setUsers({...tempObj});
             setShowModel((value) => !value);
         });
+        
     }
 
     return(
@@ -57,6 +62,7 @@ const AdminPage = () => {
             <Header />
             <Body component = {
                 <div className="body">
+                    <button className="backButton" onClick={() => {nav("/contacts")}}>Back</button>
                     <button className="addButton" onClick={() => {setShowModel((value) => !value)}}>Add account</button>
                     <div className="line"></div>
                     {showModel && 

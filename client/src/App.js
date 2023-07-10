@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/contacts" element={<ContactPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/message" element={<MessagePage />} />
+        <Route path="/message/:ref" element={<MessagePage />} />
         <Route path="/admin" element={<AdminPage />} />
 
       </Routes>

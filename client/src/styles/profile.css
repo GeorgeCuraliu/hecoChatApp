@@ -28,6 +28,14 @@
 .infoBox{
     padding-top: 2.5vh;
 }
+.usernameBox{
+    display: flex;
+    color: #6C6C6C;
+    font-size: 2.5vh;
+    font-weight: bold;
+    margin-left: 1vw;
+    align-items: center;
+}
 .nameSpace{
     display: flex;
     color: #6C6C6C;
