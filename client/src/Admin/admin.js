@@ -47,7 +47,8 @@ const AdminPage = () => {
             let tempObj = {...users};
             tempObj[login.current.username] = {userName:login.current.username, departament:login.current.departament, adminAcces:login.current.admin};
             setUsers({...tempObj});
-        })
+            setShowModel((value) => !value);
+        });
     }
 
     return(
