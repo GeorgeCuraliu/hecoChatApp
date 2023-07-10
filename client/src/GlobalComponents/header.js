@@ -1,11 +1,11 @@
 import "../styles/auth.css"
-import Heco from "../Images/hecoLogo.png"
+import Heco from "../Images/hecoLogoTrans.png"
 const Header = () => {
     return(
         <div>
             <header>
                 <p>HECO Chat</p>
-                <img src=""/>
+                <img className="logo" src={Heco}/>
             </header>
             <div className="space">
 
