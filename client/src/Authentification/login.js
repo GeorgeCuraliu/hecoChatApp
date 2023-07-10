@@ -16,8 +16,14 @@ const LoginPage = () => {
         .catch(() => {console.log("stupid")})
         .then((response) => {
             console.log(response);
-            document.cookie = `credentials = ${loginData.current.username}/${loginData.current.password}`;
-            nav("/contacts");
+            try{
+                if(response.status === 200){
+                    document.cookie = `credentials = ${loginData.current.username}/${loginData.current.password}`;
+                    nav("/contacts");
+                }
+            }catch{
+                console.log("wrong nput data")
+            }
         });
     }
 
