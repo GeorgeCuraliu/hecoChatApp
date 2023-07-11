@@ -76,3 +76,12 @@
     font-weight: bold;
     border: 2px solid var(--hecoOrange);
 }
+.error{
+    display: block;
+    height: 2vh;
+    color: red;
+    font-size: 3vh;
+    margin: 3vh;
+
+    
+}

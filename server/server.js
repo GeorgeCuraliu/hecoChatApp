@@ -1,12 +1,43 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
+const webSocket = require('ws')
 
 const app = express();
 const port = 6969;
 
 app.use(cors());
 app.use(express.json());
+
+
+
+
+
+
+const server = new webSocket.Server({port:'8008'})
+
+server.on('connection', socket => {
+    
+    console.log('Client connected')
+    
+    socket.on('message', message => {
+        socket.send(`We received your ${message}`)
+    })
+    
+    socket.on('close', (event) => {
+        console.log('Client disconnected')
+    })
+})
+console.log('socket initialized on port 8008')
+
+
+
+
+
+
+
+
+
 
 let dbPath = "data.json";
 
@@ -143,22 +174,33 @@ app.post("/getMessages",async (req, res) => {//req.body.userName
 
     let tempObj = {...data.users[req.body.userName].receivedMessages}
     let returnObj = {};
+    let highestVal = 0;
 
-    do{//will sort the data in 
-        let flag = false;
-        let smallestVal = 0;
+    for(let i = 0; i <= Object.keys(tempObj).length + 4; i++){//will sort the data in 
 
-        Object.entries(tempObj).forEach(([key,value]) => {
-            let currentValue = value.date.getHours() * 100 + value.date.getMinutes();
-            if(currentValue >= smallestVal){
-                returnObj[key] = value;
-                delete tempObj[key];
-                flag(true);
+        console.log(i);
+        let corespKey, corespValue;
+        highestVal = 0;
+
+        Object.entries(tempObj).forEach(([key,value], index) => {
+
+            let currentValue = new Date(value.date).getHours() * 100 + new Date(value.date).getMinutes();
+            console.log(currentValue + " " + index)
+            if(currentValue >= highestVal){
+                highestVal = currentValue;
+                corespKey = key;
+                corespValue = value;
             }
+            if(index === Object.keys(tempObj).length - 1){
+                console.log(`a iteration is complete ${highestVal} -- ${index} -- ${Object.keys(tempObj).length}`);
+                returnObj[corespKey] = corespValue;
+                delete tempObj[corespKey];
+            }
+
         })
         
-    }while(flag);
-
+    }
+    console.log(returnObj)
     return res.status(200).send(returnObj);
 
 })

@@ -8,8 +8,21 @@ import axios from 'axios';
 import {Route, Router, Routes} from 'react-router-dom';
 import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+const socket = new WebSocket('ws://localhost:8080')
 
 function App() {
+
+    socket.onmessage = ({data}) => {
+        console.log("Message from socket server: ", data)
+    };
+    const disconnect = () => {
+        socket.close()
+    }
+    const sendmessage = () => {
+        socket.send('Hello')
+    }
+
+    sendmessage();
 
 
   return (
@@ -26,5 +39,6 @@ function App() {
   );
   
 }
+
 
 export default App;

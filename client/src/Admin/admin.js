@@ -15,15 +15,19 @@ const AdminPage = () => {
     let nav = useNavigate();
 
     useEffect(() => {
-        axios.post("http://localhost:6969/getUsers", {userName:"24"}).then((response) => {
-            console.log(response);
-            setUsers(response.data);
-        });
-
+        if(!document.cookie)
+        {
+            nav("/");
+        } else {
+            axios.post("http://localhost:6969/getUsers", {userName:"24"}).then((response) => {
+                
+                setUsers(response.data);
+            });
+        }
         
     }, []);
     let login = useRef({})
-    console.log(login.current)
+    
     const updateValues = (value, type) => {
         login.current[type] = value;
         
@@ -82,7 +86,7 @@ const AdminPage = () => {
                     }
                     {Object.entries(users).map(([key, value]) => {
                         return(
-                            <div className="userCard">
+                            <div key={key} className="userCard">
                                 <img src={ProfilePic}/>
                                 <div className="infoContainer">
                                     <div className="infoText">

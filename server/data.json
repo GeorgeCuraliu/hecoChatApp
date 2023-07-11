@@ -1,1 +1,95 @@
-{"users":{"24":{"surname":"23423","firstname":"3242","password":"234","departament":"w4234","receivedMessages":{},"adminAcces":true},"test":{"surname":"test","firstname":"test","password":"test","departament":"test","receivedMessages":{"24":{"date":"2023-07-10T19:09:59.339Z","durations":{},"hangar":{},"for":{},"message":{"current":{}}},"undefined":{},"[object Objec t]":{},"credentials=24/234/true":{},"true":{}}},"test2":{"surname":"teste","firstname":"test","password":"test","departament":"test2","receivedMessages":{},"adminAcces":true}}}
+{
+    "users": {
+        "24": {
+            "surname": "23423",
+            "firstname": "3242",
+            "password": "234",
+            "departament": "w4234",
+            "receivedMessages": {
+            
+                "24": {
+                    "date": "2023-07-11T05:08:45.450Z",
+                    "durations": "5 min",
+                    "hangar": "Calire",
+                    "for": "Transpalet",
+                    "message": "pokemon"
+                },
+                "234": {
+                    "date": "2023-07-11T05:08:45.450Z",
+                    "durations": "5 min",
+                    "hangar": "Calire",
+                    "for": "Transpalet",
+                    "message": "pokemon"
+                },
+                "ss": {
+                    "date": "2023-07-11T05:01:42.420Z",
+                    "durations": "5 min",
+                    "hangar": "Formare",
+                    "for": "Control",
+                    "message": "test4"
+                },
+                "214": {
+                    "date": "2023-07-11T05:08:45.450Z",
+                    "durations": "5 min",
+                    "hangar": "Calire",
+                    "for": "Transpalet",
+                    "message": "pokemon"
+                },
+                "2234": {
+                    "date": "2023-07-11T05:08:45.450Z",
+                    "durations": "5 min",
+                    "hangar": "Calire",
+                    "for": "Transpalet",
+                    "message": "pokemon"
+                },
+                "qq": {
+                    "date": "2023-07-11T05:01:42.420Z",
+                    "durations": "5 min",
+                    "hangar": "Formare",
+                    "for": "Control",
+                    "message": "test4"
+                },
+                "2124": {
+                    "date": "2023-07-11T05:08:45.450Z",
+                    "durations": "5 min",
+                    "hangar": "Calire",
+                    "for": "Transpalet",
+                    "message": "pokemon"
+                }
+
+            },
+            "adminAcces": true
+        },
+        "test": {
+            "surname": "test",
+            "firstname": "test",
+            "password": "test",
+            "departament": "test",
+            "receivedMessages": {
+                "24": {
+                    "date": "2023-07-11T05:08:45.450Z",
+                    "durations": "5 min",
+                    "hangar": "Calire",
+                    "for": "Transpalet",
+                    "message": "pokemon"
+                }
+            }
+        },
+        "test2": {
+            "surname": "teste",
+            "firstname": "test",
+            "password": "test",
+            "departament": "test2",
+            "receivedMessages": {
+                "24": {
+                    "date": "2023-07-11T05:01:42.420Z",
+                    "durations": "5 min",
+                    "hangar": "Formare",
+                    "for": "Control",
+                    "message": "test4"
+                }
+            },
+            "adminAcces": true
+        }
+    }
+}

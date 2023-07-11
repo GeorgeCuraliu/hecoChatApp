@@ -12,23 +12,24 @@ const ContactPage = () => {
 
     let nav = useNavigate();
 
+    
 
 
     useEffect(() => {
-        axios.post("http://localhost:6969/getUsers", {userName:"24"}).then((response) => {
-            console.log(response);
-            setUsers(response.data);
-        });
-
+        if(!document.cookie){
+            nav("/");
+        } else {
+            axios.post("http://localhost:6969/getUsers", {userName:document.cookie.split("=")[1].split("/")[0]}).then((response) => {
+                setUsers(response.data);
+            });
+            if(document.cookie.split("=")[1].split("/")[2]){
+                setShowModel(true);
+            }
+        }
         
     }, []);
 
-    useEffect(() => {
-        console.log(document.cookie.split("=")[1].split("/")[2]);
-        if(document.cookie.split("=")[1].split("/")[2]){
-            setShowModel(true);
-        }
-    }, []);
+    
 
     return(
         <div>
@@ -37,13 +38,14 @@ const ContactPage = () => {
                 <div className="body">
                     <div className="buttonContainer">   
                         <button className="profileButton" onClick={() => {nav("/profile")}}>My Profile</button>
-                        {showModel && <button className="loginButton" onClick={() => {nav("/admin")}}>Admin</button>}
+                        <button className="profileButton" onClick={() => {nav("/"); document.cookie = "credentials=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";}}>Log Out</button>
+                        {showModel && <button className="profileButton" onClick={() => {nav("/admin")}}>Admin</button>}
                     </div>
                     <div className="line"></div>
                     <div className="contacts">
                         {Object.entries(users).map(([key, value]) => {
                             return(
-                                <div className="userCard" onClick={() => {nav(`/message/${key}-${value.departament}`)}}>
+                                <div key={key} className="userCard" onClick={() => {nav(`/message/${key}-${value.departament}`)}}>
                                     <img src={ProfilePic}/>
                                     <div className="infoContainer">
                                         <div className="infoText">
