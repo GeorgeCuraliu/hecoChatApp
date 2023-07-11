@@ -12,7 +12,26 @@ const ContactPage = () => {
 
     let nav = useNavigate();
 
-    
+    useEffect(() => {
+        if(!document.cookie){nav("/"); }
+        let username = document.cookie.split("=")[1].split("/")[0];
+        let password = document.cookie.split("=")[1].split("/")[1];
+
+        axios.post("http://localhost:6969/logIn", {userName: username, password: password})
+        .catch(() => {console.log("wrong data")})
+        .then((response) => {
+            console.log(response);
+
+            try{
+                if(response.status === 200){
+                    console.log("credentials confirmed")   
+                }
+            }catch{
+                console.log("wrong input data")
+                nav("/");  
+            }
+        });
+    }, [])
 
 
     useEffect(() => {
@@ -55,7 +74,7 @@ const ContactPage = () => {
                                             Departament: {value.departament}
                                         </div>
                                         <div className="infoText">
-                                            Admin: {value.adminAcces == undefined?"false":value.adminAcces}
+                                            Admin: {value.adminAcces === undefined?"false":"true"}
                                         </div>
                                     </div>
                                     

@@ -1,0 +1,126 @@
+client
+
+const socket = new WebSocket('ws://localhost:6969/chat');
+
+  // Handle connection open
+  socket.onopen = () => {
+    const username = '24';
+    socket.send(JSON.stringify({ type: 'login', username }));
+  
+    // Send message after the connection is open
+    const sendMessage = (username, message) => {
+      socket.send(JSON.stringify({ type: 'message', username, message }));
+    };
+  
+    // Example usage
+    const targetUsername = '24';
+    const message = 'Hello, user24!';
+    sendMessage(targetUsername, message);
+  };
+  
+  // Handle incoming messages
+  socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+  
+    if (data.type === 'message') {
+      console.log('Received message:', data.message);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+http://127.0.0.1:2999
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+server
+
+let activeUsers = {}
+
+app.ws('/chat', (ws, req) => {
+    let username;
+    console.log("user logged in")
+  
+    // Handle new connection
+    ws.on('message', (message) => {
+      const data = JSON.parse(message);
+  
+      if (data.type === 'login') {
+        // Store username in active users object
+        username = data.username;
+        activeUsers[username] = ws;
+        console.log(`User ${username} connected.`);
+      } else if (data.type === 'message') {
+        // Broadcast message to all connected users
+        const { message } = data;
+  
+        aWss.clients.forEach((client) => {
+          if (client !== ws && client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({ type: 'message', message }));
+          }
+        });
+      }
+    });
+  
+    // Handle disconnection
+    ws.on('close', () => {
+      if (username) {
+        // Remove user from active users object
+        delete activeUsers[username];
+        console.log(`User ${username} disconnected.`);
+      }
+    });
+
+
+
+    ws.on('message', (message) => {
+        const data = JSON.parse(message);
+    
+        if (data.type === 'login') {
+          // Store username in active users object
+          username = data.username;
+          activeUsers[username] = ws;
+          console.log(`User ${username} connected.`);
+        } else if (data.type === 'message') {
+          const { username, message } = data;
+    
+          if (username === 'all') {
+            // Broadcast message to all connected users
+            aWss.clients.forEach((client) => {
+              if (client !== ws && client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify({ type: 'message', message }));
+              }
+            });
+          } else {
+            // Send message to the specified user
+            const targetUser = activeUsers[username];
+    
+            if (targetUser && targetUser.readyState === WebSocket.OPEN) {
+              targetUser.send(JSON.stringify({ type: 'message', message }));
+            }
+          }
+        }
+      });
+  });

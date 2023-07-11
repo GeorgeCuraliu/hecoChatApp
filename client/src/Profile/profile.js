@@ -7,11 +7,44 @@ import { Navigate, useNavigate } from "react-router-dom/dist";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
-const ProfilePage = () => {
+const ProfilePage = (props) => {
 
     let nav = useNavigate();
 
     const [message, setMessage] = useState({});
+
+    useEffect(() => {
+        if(!document.cookie){nav("/"); }
+        let username = document.cookie.split("=")[1].split("/")[0];
+        let password = document.cookie.split("=")[1].split("/")[1];
+
+        axios.post("http://localhost:6969/logIn", {userName: username, password: password})
+        .catch(() => {console.log("wrong data")})
+        .then((response) => {
+            console.log(response);
+
+            try{
+                if(response.status === 200){
+                    console.log("credentials confirmed")   
+                }
+            }catch{
+                console.log("wrong input data")
+                nav("/");  
+            }
+        });
+    }, [])
+
+    useEffect(() => {
+        if(props.message){
+            console.log("message arrived in profile page")
+            if(message && message[props.message.from]){
+                let tempObj = {...message};
+                delete tempObj[props.message.from];
+                setMessage({...tempObj});
+            }
+            setMessage(val => ({ [props.message.from]: props.message, ...val }));
+        }
+    }, [props.message])
 
     useEffect(() => {
         if(!document.cookie)
@@ -30,6 +63,8 @@ const ProfilePage = () => {
         }
     }, []);
 
+
+
     return(
         <div>
             <Header />
@@ -38,7 +73,7 @@ const ProfilePage = () => {
                     <button className="backButton" onClick={() => {nav("/contacts")}}>Inapoi</button>
                     <div className="dataContainer">
                         <div className="flex">
-                            <img src={ProfilePic} className="profilePic"/>
+                            <img src={ProfilePic} className="profilePic" alt="noImg"/>
                                 <div className="usernameBox">
                                     My profile
                                 </div>
@@ -46,7 +81,7 @@ const ProfilePage = () => {
                         
                         <div className="line"></div>
                         <div className="flex">
-                            {Object.entries(message).map(([key, value]) => {
+                            {message && Object.entries(message).map(([key, value]) => {
                                 return(
                                     <div key={key} className="message"> 
                                         <div>From: {key}</div>

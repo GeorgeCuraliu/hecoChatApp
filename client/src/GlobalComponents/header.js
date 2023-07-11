@@ -5,7 +5,7 @@ const Header = () => {
         <div>
             <header>
                 <p>HECO Chat</p>
-                <img className="logo" src={Heco}/>
+                <img className="logo" alt="noImg" src={Heco}/>
             </header>
             <div className="space">
 

@@ -5,21 +5,34 @@ import Body from "../GlobalComponents/body.js";
 import ProfilePic from "../Images/profilePic.png";
 import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom/dist";
+import { useNavigate } from "react-router-dom/dist";
 import axios from "axios";
-const MessagePage = () => {
+const MessagePage = (props) => {
 
     let { ref } = useParams();
     let messageData = useRef({});
     let nav = useNavigate();
 
     useEffect(() => {
-        if(!document.cookie){
-            nav("/");
-        } else {
-            
-        }
-    }, []);
+        if(!document.cookie){nav("/"); }
+        let username = document.cookie.split("=")[1].split("/")[0];
+        let password = document.cookie.split("=")[1].split("/")[1];
+
+        axios.post("http://localhost:6969/logIn", {userName: username, password: password})
+        .catch(() => {console.log("wrong data")})
+        .then((response) => {
+            console.log(response);
+
+            try{
+                if(response.status === 200){
+                    console.log("credentials confirmed")   
+                }
+            }catch{
+                console.log("wrong input data")
+                nav("/");  
+            }
+        });
+    }, [])
 
     const [showModel, setShowModel] = useState(false);
     const [button, setButton] = useState({});
@@ -32,12 +45,14 @@ const MessagePage = () => {
 
     
     const sendMessage = () => {
-        if(document.cookie.split("=")[1].split("/")[0] && button && service && time && messageData.current.message){
+        if(document.cookie.split("=")[1].split("/")[0] && button && service && time){
             axios.post("http://localhost:6969/sendMessage", {to: ref.split("-")[0], from: document.cookie.split("=")[1].split("/")[0], hangar: button, for: service, time: time, date: new Date(), message: messageData.current.message})
             .catch(console.log("idk"))
             .then((response) => {
                 console.log(response);
                 if(response.status === 200){
+                    //this function will use ws to send the message dirrect to the target user
+                    props.sendMessageWS(ref.split("-")[0], {from: document.cookie.split("=")[1].split("/")[0], hangar: button, for: service, durations: time, date: new Date(), message: messageData.current.message})
                     nav("/contacts");
                 } 
             });

@@ -15,17 +15,36 @@ const AdminPage = () => {
     let nav = useNavigate();
 
     useEffect(() => {
-        if(!document.cookie)
+        if(document.cookie)
         {
-            nav("/");
-        } else {
-            axios.post("http://localhost:6969/getUsers", {userName:"24"}).then((response) => {
-                
-                setUsers(response.data);
-            });
+            let username = document.cookie.split("=")[1].split("/")[0];
+            let password = document.cookie.split("=")[1].split("/")[1];
+
+            axios.post("http://localhost:6969/logIn", {userName: username, password: password})
+            .catch(() => {console.log("wrong data")})
+            .then((response) => {
+            console.log(response);
+
+            try{
+                if(response.status === 200){
+                    console.log("credentials confirmed")   
+                }
+            }catch{
+                console.log("wrong input data")
+                nav("/");  
+            }
+        });
         }
         
     }, []);
+
+    useEffect(() => {
+        axios.post("http://localhost:6969/getUsers", {userName:document.cookie.split("=")[1].split("/")[0]}).then((response) => {
+                
+                setUsers(response.data);
+            });
+    }, [])
+
     let login = useRef({})
     
     const updateValues = (value, type) => {
@@ -87,7 +106,7 @@ const AdminPage = () => {
                     {Object.entries(users).map(([key, value]) => {
                         return(
                             <div key={key} className="userCard">
-                                <img src={ProfilePic}/>
+                                <img src={ProfilePic} alt={"someIMg"}/>
                                 <div className="infoContainer">
                                     <div className="infoText">
                                         Username: {key}
@@ -96,10 +115,10 @@ const AdminPage = () => {
                                         Departament: {value.departament}
                                     </div>
                                     <div className="infoText">
-                                        Admin: {value.adminAcces == undefined?"false":value.adminAcces}
+                                        Admin: {value.adminAcces === undefined?"false":"true"}
                                     </div>
                                 </div>
-                                <button className="deleteButton"><img src={XMark} onClick={() => {deleteAccount(key)}}/></button>
+                                <button className="deleteButton"><img alt="someImg" src={XMark} onClick={() => {deleteAccount(key)}}/></button>
                             </div>
                         );
                     })}

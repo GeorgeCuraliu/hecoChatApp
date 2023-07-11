@@ -1,9 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
-const webSocket = require('ws')
+const expressWs = require('express-ws');
+const WebSocket = require('ws');
 
 const app = express();
+const expressWsInstance = expressWs(app);
+const aWss = expressWsInstance.getWss();
 const port = 6969;
 
 app.use(cors());
@@ -12,27 +15,50 @@ app.use(express.json());
 
 
 
+let activeUsers = {}
 
-
-const server = new webSocket.Server({port:'8008'})
-
-server.on('connection', socket => {
-    
-    console.log('Client connected')
-    
-    socket.on('message', message => {
-        socket.send(`We received your ${message}`)
-    })
-    
-    socket.on('close', (event) => {
-        console.log('Client disconnected')
-    })
-})
-console.log('socket initialized on port 8008')
-
-
-
-
+app.ws('/chat', (ws, req) => {
+    let username;
+  
+    // Handle new connection
+    ws.on('message', (message) => {
+      const data = JSON.parse(message);
+  
+      if (data.type === 'login') {
+        // Store username in active users object
+        username = data.username;
+        activeUsers[username] = ws;
+        console.log(`User ${username} connected.`);
+      } else if (data.type === 'message') {
+        const { username, message } = data;
+  
+        if (username === 'all') {
+          // Broadcast message to all connected users except the sender
+          aWss.clients.forEach((client) => {
+            if (client !== ws && client.readyState === WebSocket.OPEN) {
+              client.send(JSON.stringify({ type: 'message', message }));
+            }
+          });
+        } else {
+          // Send message to the specified user
+          const targetUser = activeUsers[username];
+  
+          if (targetUser && targetUser.readyState === WebSocket.OPEN) {
+            targetUser.send(JSON.stringify({ type: 'message', message }));
+          }
+        }
+      }
+    });
+  
+    // Handle disconnection
+    ws.on('close', () => {
+      if (username) {
+        // Remove user from active users object
+        delete activeUsers[username];
+        console.log(`User ${username} disconnected.`);
+      }
+    });
+  });
 
 
 
@@ -172,34 +198,20 @@ app.post("/getMessages",async (req, res) => {//req.body.userName
         return res.status(500).send("Couldnt acces the data base");
     }
 
-    let tempObj = {...data.users[req.body.userName].receivedMessages}
-    let returnObj = {};
-    let highestVal = 0;
+    let tempObj = { ...data.users[req.body.userName].receivedMessages };
+let returnObj = {};
 
-    for(let i = 0; i <= Object.keys(tempObj).length + 4; i++){//will sort the data in 
+    const sortedMessages = Object.entries(tempObj)
+        .sort(([keyA, valueA], [keyB, valueB]) => {
+            const dateA = new Date(valueA.date);
+                const dateB = new Date(valueB.date);
+            return dateB - dateA; // Compare dates in descending order
+        });
 
-        console.log(i);
-        let corespKey, corespValue;
-        highestVal = 0;
+    sortedMessages.forEach(([key, value]) => {
+        returnObj[key] = value;
+    });
 
-        Object.entries(tempObj).forEach(([key,value], index) => {
-
-            let currentValue = new Date(value.date).getHours() * 100 + new Date(value.date).getMinutes();
-            console.log(currentValue + " " + index)
-            if(currentValue >= highestVal){
-                highestVal = currentValue;
-                corespKey = key;
-                corespValue = value;
-            }
-            if(index === Object.keys(tempObj).length - 1){
-                console.log(`a iteration is complete ${highestVal} -- ${index} -- ${Object.keys(tempObj).length}`);
-                returnObj[corespKey] = corespValue;
-                delete tempObj[corespKey];
-            }
-
-        })
-        
-    }
     console.log(returnObj)
     return res.status(200).send(returnObj);
 
